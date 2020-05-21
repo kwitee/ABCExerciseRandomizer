@@ -9,24 +9,25 @@ from note_value import NoteValue
 
 
 # TODO: better name in the header
-# TODO: add tie probability as an input, in format 0.1
 # TODO: meter input (3/4 etc.)
 class ExerciseGenerator:
-    __possible_notes = []
-    __possible_lengths = []
 
-    def __init__(self, note_distribution, length_distribution):
+    def __init__(self, note_distribution, length_distribution, tie_probability):
+        self.__possible_notes = []
+
         for note_weight in note_distribution:
             for _ in range(note_weight[1]):
                 self.__possible_notes.append(note_weight[0])
+
+        self.__possible_lengths = []
 
         for length_weight in length_distribution:
             for _ in range(length_weight[1]):
                 self.__possible_lengths.append(length_weight[0])
 
-    __bar_length = 4
-    __tie_probability = [True, False, False, False, False, False, False, False]
+        self.__tie_probability = tie_probability
 
+    __bar_length = 4
     __exercise_name = f"Random exercise {datetime.now().strftime('%c')}"
     __script_name = os.path.basename(__file__)
     __default_note_length = "1/4"
@@ -57,7 +58,7 @@ class ExerciseGenerator:
 
             length = length + note_length.value
 
-            tie = not last_bar and length == self.__bar_length and random.choice(self.__tie_probability)
+            tie = not last_bar and length == self.__bar_length and self.__tie_probability > random.random()
             notes.append(Note(note_value, note_length, tie))
 
         return Bar(notes)

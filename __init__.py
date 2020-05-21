@@ -20,5 +20,7 @@ length_distribution = [
     [NoteLength.whole, 1]
 ]
 
-generator = ExerciseGenerator(note_distribution, length_distribution)
+tie_probability = 0.05
+
+generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability)
 print(generator.generate_exercise())
