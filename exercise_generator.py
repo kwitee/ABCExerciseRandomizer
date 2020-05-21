@@ -5,16 +5,26 @@ from datetime import datetime
 from bar import Bar
 from note import Note
 from score import Score
+from note_value import NoteValue
 
 
 # TODO: better name in the header
-# TODO: better input data
+# TODO: add tie probability as an input, in format 0.1
+# TODO: meter input (3/4 etc.)
 class ExerciseGenerator:
-    __REST = "z"
+    __possible_notes = []
+    __possible_lengths = []
+
+    def __init__(self, note_distribution, length_distribution):
+        for note_weight in note_distribution:
+            for _ in range(note_weight[1]):
+                self.__possible_notes.append(note_weight[0])
+
+        for length_weight in length_distribution:
+            for _ in range(length_weight[1]):
+                self.__possible_lengths.append(length_weight[0])
 
     __bar_length = 4
-    __possible_notes = ["c", "c", "B", "B", "d", "d", "e", "f", "g", __REST]
-    __possible_lengths = [1, 1, 1, 1, 2, 2, 2, 3, 4]
     __tie_probability = [True, False, False, False, False, False, False, False]
 
     __exercise_name = f"Random exercise {datetime.now().strftime('%c')}"
@@ -41,11 +51,11 @@ class ExerciseGenerator:
 
         while length != self.__bar_length:
             remaining_length = self.__bar_length - length
-            possible_length = [length for length in self.__possible_lengths if length <= remaining_length]
+            possible_length = [length for length in self.__possible_lengths if length.value <= remaining_length]
             note_length = random.choice(possible_length)
             note_value = random.choice(self.__get_possible_notes(length, previous_bar, note_value))
 
-            length = length + note_length
+            length = length + note_length.value
 
             tie = not last_bar and length == self.__bar_length and random.choice(self.__tie_probability)
             notes.append(Note(note_value, note_length, tie))
@@ -62,8 +72,8 @@ class ExerciseGenerator:
                 possible_notes = [note for note in self.__possible_notes
                                   if note == last_note_in_previous_bar.get_value()]
         else:
-            if last_note == self.__REST:
-                possible_notes = [note for note in self.__possible_notes if note != self.__REST]
+            if last_note == NoteValue.rest:
+                possible_notes = [note for note in self.__possible_notes if note != NoteValue.rest]
 
         return possible_notes
 

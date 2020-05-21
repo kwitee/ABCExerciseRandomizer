@@ -1,3 +1,7 @@
+from note_length import NoteLength
+from note_value import NoteValue
+
+
 class Note:
     __TIE = "-"
 
@@ -16,4 +20,7 @@ class Note:
         return self.__tie
 
     def __str__(self):
-        return f"{self.__value}{self.__length if self.__length > 1 else str()}{self.__TIE if self.__tie else str()}"
+        value = NoteValue(self.__value).value
+        length = NoteLength(self.__length).value if self.__length != NoteLength.quarter else str()
+        tie = self.__TIE if self.__tie else str()
+        return f"{value}{length}{tie}"
