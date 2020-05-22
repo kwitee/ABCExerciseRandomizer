@@ -1,3 +1,4 @@
+from bar_length import BarLength
 from exercise_generator import ExerciseGenerator
 from note_value import NoteValue
 from note_length import NoteLength
@@ -21,6 +22,8 @@ length_distribution = [
 ]
 
 tie_probability = 0.05
+bar_length = BarLength.three
+number_of_bars = 16
 
-generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability)
+generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability, bar_length, number_of_bars)
 print(generator.generate_exercise())

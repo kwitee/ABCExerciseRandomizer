@@ -4,41 +4,56 @@ from datetime import datetime
 from typing import List, Tuple
 
 from bar import Bar
+from bar_length import BarLength
 from note import Note
 from score import Score
 from note_value import NoteValue
 from note_length import NoteLength
 
 
-# TODO: better name in the header
-# TODO: meter input (3/4 etc.)
 class ExerciseGenerator:
 
     def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
                  length_distribution: List[Tuple[NoteLength, int]],
-                 tie_probability: float):
-        self.__possible_notes = []
+                 tie_probability: float, bar_length: BarLength, number_of_bars: int):
+        """
+        Creates exercise generator instance.
 
-        for note_weight in note_distribution:
-            for _ in range(note_weight[1]):
-                self.__possible_notes.append(note_weight[0])
+        Parameters:
+            note_distribution: Note probability distribution, higher value means greater probability.
+            length_distribution: Length probability distribution, higher value means greater probability.
+            tie_probability: Probability of ties between bars (must be in <0;1>).
+            bar_length: Defines how many quarter notes is in each bar (meters not based on quarter notes are not supported).
+            number_of_bars: Number of bars to be generated (must be in <1;64>).
+        """
 
-        self.__possible_lengths = []
+        if tie_probability < 0 or tie_probability > 1:
+            raise ValueError
+        if number_of_bars < 1 or number_of_bars > 64:
+            raise ValueError
 
-        for length_weight in length_distribution:
-            for _ in range(length_weight[1]):
-                self.__possible_lengths.append(length_weight[0])
-
+        self.__possible_notes = self.__unroll_distribution(note_distribution)
+        self.__possible_lengths = self.__unroll_distribution(length_distribution)
         self.__tie_probability = tie_probability
+        self.__bar_length = BarLength(bar_length).value
 
-    __bar_length = 4
-    __exercise_name = f"Random exercise {datetime.now().strftime('%c')}"
-    __script_name = os.path.basename(__file__)
-    __default_note_length = "1/4"
-    __tempo = "1/4 = 50"
-    __meter = "C"
-    __key = "C"
-    __number_of_bars = 16
+        self.__meter = f"{self.__bar_length}/4"
+        self.__exercise_name = f"Random exercise {datetime.now().strftime('%c')}"
+        self.__script_name = os.path.basename(__file__)
+        self.__default_note_length = "1/4"
+        self.__tempo = "1/4 = 50"
+        self.__key = "C"
+        self.__number_of_bars = number_of_bars
+
+    @staticmethod
+    def __unroll_distribution(distribution):
+        output = []
+
+        for weight in distribution:
+            for _ in range(weight[1]):
+                output.append(weight[0])
+
+        return output
 
     def __generate_header(self):
         return f"X:1\n" \
@@ -93,4 +108,11 @@ class ExerciseGenerator:
         return Score(bars)
 
     def generate_exercise(self):
+        """
+        Generates random ABC exercise based on input parameters.
+
+        Returns:
+            Random ABC exercise in string form.
+        """
+
         return f"{self.__generate_header()}{self.__generate_score()}"
