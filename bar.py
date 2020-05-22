@@ -1,5 +1,10 @@
+from typing import List
+
+from note import Note
+
+
 class Bar:
-    def __init__(self, notes):
+    def __init__(self, notes: List[Note]):
         self.__notes = notes
 
     def get_notes(self):

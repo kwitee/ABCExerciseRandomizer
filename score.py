@@ -1,10 +1,15 @@
+from typing import List
+
+from bar import Bar
+
+
 class Score:
     __LINE_BREAK = "!\n"
     __BAR_END = "|"
     __LAST_BAR_END = "|]"
     __LINE_BREAK_AFTER = 4
 
-    def __init__(self, bars):
+    def __init__(self, bars: List[Bar]):
         self.__bars = bars
 
     def get_bars(self):

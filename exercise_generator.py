@@ -1,18 +1,22 @@
 import os
 import random
 from datetime import datetime
+from typing import List, Tuple
 
 from bar import Bar
 from note import Note
 from score import Score
 from note_value import NoteValue
+from note_length import NoteLength
 
 
 # TODO: better name in the header
 # TODO: meter input (3/4 etc.)
 class ExerciseGenerator:
 
-    def __init__(self, note_distribution, length_distribution, tie_probability):
+    def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
+                 length_distribution: List[Tuple[NoteLength, int]],
+                 tie_probability: float):
         self.__possible_notes = []
 
         for note_weight in note_distribution:
@@ -45,7 +49,7 @@ class ExerciseGenerator:
                f"K:{self.__key}\n" \
                f"I:abc-creator {self.__script_name}\n"
 
-    def __generate_bar(self, previous_bar, last_bar):
+    def __generate_bar(self, previous_bar: Bar, last_bar: bool):
         length = 0
         notes = []
         note_value = str()
@@ -63,7 +67,7 @@ class ExerciseGenerator:
 
         return Bar(notes)
 
-    def __get_possible_notes(self, length, previous_bar, last_note):
+    def __get_possible_notes(self, length: int, previous_bar: Bar, last_note: NoteValue):
         possible_notes = self.__possible_notes
 
         if length == 0 and previous_bar is not None:

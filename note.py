@@ -5,7 +5,7 @@ from note_value import NoteValue
 class Note:
     __TIE = "-"
 
-    def __init__(self, value, length, tie):
+    def __init__(self, value: NoteValue, length: NoteLength, tie: bool):
         self.__value = value
         self.__length = length
         self.__tie = tie
