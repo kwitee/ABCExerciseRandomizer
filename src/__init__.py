@@ -22,7 +22,7 @@ length_distribution = [
 ]
 
 tie_probability = 0.05
-bar_length = BarLength.three
+bar_length = BarLength.four
 number_of_bars = 16
 
 generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability, bar_length, number_of_bars)
