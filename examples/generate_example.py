@@ -1,7 +1,7 @@
-from bar_length import BarLength
-from exercise_generator import ExerciseGenerator
-from note_value import NoteValue
-from note_length import NoteLength
+from abc_exercise_randomizer.bar_length import BarLength
+from abc_exercise_randomizer.exercise_generator import ExerciseGenerator
+from abc_exercise_randomizer.note_value import NoteValue
+from abc_exercise_randomizer.note_length import NoteLength
 
 note_distribution = [
     (NoteValue.c4, 1),

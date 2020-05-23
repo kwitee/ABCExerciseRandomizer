@@ -1,6 +1,6 @@
 from typing import List
 
-from bar import Bar
+from abc_exercise_randomizer.bar import Bar
 
 
 class Score:
