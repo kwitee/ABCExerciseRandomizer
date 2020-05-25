@@ -1,37 +1,31 @@
+from unittest.mock import Mock
+
 import pytest
 
 from abc_exercise_randomizer.bar import Bar
-from abc_exercise_randomizer.note import Note
-from abc_exercise_randomizer.note_length import NoteLength
-from abc_exercise_randomizer.note_value import NoteValue
 
 
 class TestNote:
     @pytest.mark.parametrize("notes, expected",
                              [
                                  (
-                                     [
-                                         Note(NoteValue.g4, NoteLength.quarter, False),
-                                         Note(NoteValue.d4, NoteLength.half, True)
-                                     ], "gd2-"
+                                     ["g", "d2-"], "gd2-"
                                  ), (
-                                     [
-                                         Note(NoteValue.a3, NoteLength.half, False),
-                                         Note(NoteValue.b3, NoteLength.half, False)
-                                     ], "A2B2"
+                                     ["A2", "B2"], "A2B2"
                                  ), (
-                                     [
-                                         Note(NoteValue.a3, NoteLength.whole, False)
-                                     ], "A4"
+                                     ["A4"], "A4"
                                  ), (
-                                     [
-                                         Note(NoteValue.c4, NoteLength.quarter, False),
-                                         Note(NoteValue.d4, NoteLength.quarter, False),
-                                         Note(NoteValue.e4, NoteLength.quarter, False),
-                                         Note(NoteValue.f4, NoteLength.quarter, True)
-                                     ], "cdef-"
+                                     ["c", "d", "e", "f-"], "cdef-"
                                  )
                              ])
     def test_str(self, notes, expected):
-        bar = Bar(notes)
+        note_mocks = []
+
+        for note in notes:
+            note_mock = Mock()
+            note_mock.__str__ = Mock()
+            note_mock.__str__.return_value = note
+            note_mocks.append(note_mock)
+
+        bar = Bar(note_mocks)
         assert str(bar) == expected
