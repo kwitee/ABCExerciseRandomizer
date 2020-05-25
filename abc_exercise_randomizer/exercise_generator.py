@@ -3,12 +3,12 @@ import random
 from datetime import datetime
 from typing import List, Tuple
 
-from bar import Bar
-from bar_length import BarLength
-from note import Note
-from score import Score
-from note_value import NoteValue
-from note_length import NoteLength
+from abc_exercise_randomizer.bar import Bar
+from abc_exercise_randomizer.bar_length import BarLength
+from abc_exercise_randomizer.note import Note
+from abc_exercise_randomizer.score import Score
+from abc_exercise_randomizer.note_value import NoteValue
+from abc_exercise_randomizer.note_length import NoteLength
 
 
 class ExerciseGenerator:

@@ -1,6 +1,6 @@
 from typing import List
 
-from note import Note
+from abc_exercise_randomizer.note import Note
 
 
 class Bar:

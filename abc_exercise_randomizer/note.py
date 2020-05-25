@@ -1,5 +1,5 @@
-from note_length import NoteLength
-from note_value import NoteValue
+from abc_exercise_randomizer.note_length import NoteLength
+from abc_exercise_randomizer.note_value import NoteValue
 
 
 class Note:
