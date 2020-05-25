@@ -12,6 +12,7 @@ class Score:
     def __init__(self, bars: List[Bar]):
         self.__bars = bars
 
+    @property
     def get_bars(self):
         return self.__bars
 

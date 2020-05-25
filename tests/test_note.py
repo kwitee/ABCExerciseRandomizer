@@ -6,7 +6,8 @@ from abc_exercise_randomizer.note_value import NoteValue
 
 
 class TestNote:
-    @pytest.mark.parametrize("note_value,note_length,tie,expected", [(NoteValue.a3, NoteLength.quarter, True, "A-"),
+    @pytest.mark.parametrize("note_value,note_length,tie,expected", [(NoteValue.f4, NoteLength.eighth, False, "f/2"),
+                                                                     (NoteValue.a3, NoteLength.quarter, True, "A-"),
                                                                      (NoteValue.c4, NoteLength.half, False, "c2"),
                                                                      (NoteValue.d4, NoteLength.whole, True, "d4-"),
                                                                      (NoteValue.g4, NoteLength.half_dot, False, "g3")])

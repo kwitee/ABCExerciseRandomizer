@@ -23,7 +23,7 @@ class ExerciseGenerator:
             note_distribution: Note probability distribution, higher value means greater probability.
             length_distribution: Length probability distribution, higher value means greater probability.
             tie_probability: Probability of ties between bars (must be in <0;1>).
-            bar_length: Defines how many quarter notes is in each bar (meters not based on quarter notes are not supported).
+            bar_length: Defines how many quarter notes are in each bar (only meters with quarter notes are supported).
             number_of_bars: Number of bars to be generated (must be in <1;64>).
         """
 
@@ -69,13 +69,13 @@ class ExerciseGenerator:
         notes = []
         note_value = str()
 
-        while length != self.__bar_length:
+        while length < self.__bar_length:
             remaining_length = self.__bar_length - length
-            possible_length = [length for length in self.__possible_lengths if length.value <= remaining_length]
+            possible_length = [length for length in self.__possible_lengths if length.value.value <= remaining_length]
             note_length = random.choice(possible_length)
             note_value = random.choice(self.__get_possible_notes(length, previous_bar, note_value))
 
-            length = length + note_length.value
+            length = length + note_length.value.value
 
             tie = not last_bar and length == self.__bar_length and self.__tie_probability > random.random()
             notes.append(Note(note_value, note_length, tie))
@@ -86,11 +86,11 @@ class ExerciseGenerator:
         possible_notes = self.__possible_notes
 
         if length == 0 and previous_bar is not None:
-            last_note_in_previous_bar = previous_bar.get_notes()[-1]
+            last_note_in_previous_bar = previous_bar.get_notes[-1]
 
-            if last_note_in_previous_bar.get_tie():
+            if last_note_in_previous_bar.get_tie:
                 possible_notes = [note for note in self.__possible_notes
-                                  if note == last_note_in_previous_bar.get_value()]
+                                  if note == last_note_in_previous_bar.get_value]
         else:
             if last_note == NoteValue.rest:
                 possible_notes = [note for note in self.__possible_notes if note != NoteValue.rest]

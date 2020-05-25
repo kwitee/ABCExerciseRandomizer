@@ -7,6 +7,7 @@ class Bar:
     def __init__(self, notes: List[Note]):
         self.__notes = notes
 
+    @property
     def get_notes(self):
         return self.__notes
 

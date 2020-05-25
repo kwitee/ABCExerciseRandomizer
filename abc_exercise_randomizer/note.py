@@ -10,17 +10,20 @@ class Note:
         self.__length = length
         self.__tie = tie
 
+    @property
     def get_value(self):
         return self.__value
 
+    @property
     def get_length(self):
         return self.__length
 
+    @property
     def get_tie(self):
         return self.__tie
 
     def __str__(self):
         value = NoteValue(self.__value).value
-        length = NoteLength(self.__length).value if self.__length != NoteLength.quarter else str()
+        length = NoteLength(self.__length).display_string
         tie = self.__TIE if self.__tie else str()
         return f"{value}{length}{tie}"
