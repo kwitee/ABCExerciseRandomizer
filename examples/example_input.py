@@ -1,5 +1,4 @@
 from abc_exercise_randomizer.bar_length import BarLength
-from abc_exercise_randomizer.exercise_generator import ExerciseGenerator
 from abc_exercise_randomizer.note_value import NoteValue
 from abc_exercise_randomizer.note_length import NoteLength
 
@@ -25,6 +24,3 @@ length_distribution = [
 tie_probability = 0.05
 bar_length = BarLength.four
 number_of_bars = 16
-
-generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability, bar_length, number_of_bars)
-print(generator.generate_exercise())

@@ -1,6 +1,5 @@
 import os
 import random
-from datetime import datetime
 from typing import List, Tuple
 
 from abc_exercise_randomizer.bar import Bar
@@ -38,7 +37,7 @@ class ExerciseGenerator:
         self.__bar_length = BarLength(bar_length).value
 
         self.__meter = f"{self.__bar_length}/4"
-        self.__exercise_name = f"Random exercise {datetime.now().strftime('%c')}"
+        self.__exercise_name = f"Random exercise"
         self.__script_name = os.path.basename(__file__)
         self.__default_note_length = "1/4"
         self.__tempo = "1/4 = 50"
@@ -55,9 +54,12 @@ class ExerciseGenerator:
 
         return output
 
-    def __generate_header(self):
-        return f"X:1\n" \
-               f"T:{self.__exercise_name}\n" \
+    def __generate_header(self, number: int):
+        if number < 1:
+            raise ValueError
+
+        return f"X:{number}\n" \
+               f"T:{number} - {self.__exercise_name}\n" \
                f"M:{self.__meter}\n" \
                f"L:{self.__default_note_length}\n" \
                f"Q:{self.__tempo}\n" \
@@ -115,4 +117,30 @@ class ExerciseGenerator:
             Random ABC exercise in string form.
         """
 
-        return f"{self.__generate_header()}{self.__generate_score()}"
+        return self.__generate_exercise_with_number()
+
+    def __generate_exercise_with_number(self, number: int = 1):
+        return f"{self.__generate_header(number)}{self.__generate_score()}"
+
+    __EXERCISE_DELIMITER = "\n\n"
+
+    def generate_exercises(self, count: int):
+        """
+        Generates number of random ABC exercise based on input parameters.
+
+        Parameters:
+            count: Number of exercises. Can't be lower than one.
+        Returns:
+            Random ABC exercise in string form.
+        """
+
+        if count < 1:
+            raise ValueError
+
+        exercises = str()
+
+        for number in range(count):
+            delimiter = str() if number == 0 else self.__EXERCISE_DELIMITER
+            exercises = exercises + delimiter + self.__generate_exercise_with_number(number + 1)
+
+        return exercises
