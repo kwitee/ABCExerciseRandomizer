@@ -75,8 +75,7 @@ class BarGenerator:
             last_note_in_previous_bar = previous_bar.get_notes[-1]
 
             if last_note_in_previous_bar.get_tie:
-                possible_notes = [note for note in self.__possible_notes
-                                  if note == last_note_in_previous_bar.get_value]
+                possible_notes = [last_note_in_previous_bar.get_value]
         else:
             if last_note == NoteValue.rest:
                 possible_notes = [note for note in self.__possible_notes if note != NoteValue.rest]
