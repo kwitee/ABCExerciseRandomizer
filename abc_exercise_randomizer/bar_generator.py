@@ -11,7 +11,7 @@ from abc_exercise_randomizer.note_value import NoteValue
 class BarGenerator:
     def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
                  length_distribution: List[Tuple[NoteLength, int]],
-                 tie_probability: float, bar_length: BarLength):
+                 tie_probability: float, syncopated: bool, bar_length: BarLength):
         """
         Creates bar generator instance.
 
@@ -19,6 +19,7 @@ class BarGenerator:
             note_distribution: Note probability distribution, higher value means greater probability.
             length_distribution: Length probability distribution, higher value means greater probability.
             tie_probability: Probability of ties between bars (must be in <0;1>).
+            syncopated: Defines if the rhythm can be syncopated.
             bar_length: Defines how many quarter notes are in each bar (only meters with quarter notes are supported).
         """
 
@@ -28,6 +29,7 @@ class BarGenerator:
         self.__possible_notes = self.__unroll_distribution(note_distribution)
         self.__possible_lengths = self.__unroll_distribution(length_distribution)
         self.__tie_probability = tie_probability
+        self.__syncopated = syncopated
         self.__bar_length = BarLength(bar_length).value
 
     @staticmethod
@@ -68,7 +70,17 @@ class BarGenerator:
 
     def __get_possible_lengths(self, length):
         remaining_length = self.__bar_length - length
-        return [length for length in self.__possible_lengths if length.value.value <= remaining_length]
+        return [length for length in self.__possible_lengths if
+                self.__choose_length(length.value.value, remaining_length)]
+
+    def __choose_length(self, length_value, remaining_length):
+        fits = length_value <= remaining_length
+
+        if not self.__syncopated:
+            if not float(remaining_length).is_integer():
+                return fits and not float(length_value).is_integer()
+
+        return fits
 
     def __get_possible_notes(self, length: int, previous_bar: Bar, last_note: NoteValue):
         possible_notes = self.__possible_notes

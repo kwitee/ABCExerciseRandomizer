@@ -11,7 +11,7 @@ class ExerciseGenerator:
 
     def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
                  length_distribution: List[Tuple[NoteLength, int]],
-                 tie_probability: float, bar_length: BarLength, number_of_bars: int):
+                 tie_probability: float, syncopated: bool, bar_length: BarLength, number_of_bars: int):
         """
         Creates exercise generator instance.
 
@@ -19,11 +19,12 @@ class ExerciseGenerator:
             note_distribution: Note probability distribution, higher value means greater probability.
             length_distribution: Length probability distribution, higher value means greater probability.
             tie_probability: Probability of ties between bars (must be in <0;1>).
+            syncopated: Defines if the rhythm can be syncopated.
             bar_length: Defines how many quarter notes are in each bar (only meters with quarter notes are supported).
             number_of_bars: Number of bars to be generated (must be in <1;64>).
         """
 
-        bar_generator = BarGenerator(note_distribution, length_distribution, tie_probability, bar_length)
+        bar_generator = BarGenerator(note_distribution, length_distribution, tie_probability, syncopated, bar_length)
         self.__score_generator = ScoreGenerator(bar_generator, bar_length, number_of_bars)
 
     def generate_exercise(self):

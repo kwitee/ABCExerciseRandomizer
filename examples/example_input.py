@@ -15,6 +15,7 @@ note_distribution = [
 ]
 
 length_distribution = [
+    (NoteLength.eighth, 2),
     (NoteLength.quarter, 5),
     (NoteLength.half, 5),
     (NoteLength.half_dot, 1),
@@ -22,5 +23,6 @@ length_distribution = [
 ]
 
 tie_probability = 0.05
+syncopated = False
 bar_length = BarLength.four
 number_of_bars = 16
