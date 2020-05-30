@@ -22,7 +22,7 @@ class ScoreGenerator:
 
         self.__bar_generator = bar_generator
 
-        self.__meter = f"{bar_length}/4"
+        self.__meter = f"{BarLength(bar_length).value}/4"
         self.__score_name = f"Random score"
         self.__script_name = os.path.basename(__file__)
         self.__default_note_length = "1/4"

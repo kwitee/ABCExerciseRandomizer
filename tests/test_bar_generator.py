@@ -19,7 +19,7 @@ class TestBarGenerator:
                                  ([(NoteValue.d4, 1)], [(NoteLength.quarter, 1)], 1, BarLength.four, True, "dddd-"),
                                  ([(NoteValue.d4, 1)], [(NoteLength.quarter, 1)], 0, BarLength.three, False, "ddd")
                              ])
-    def test_generated_value(self, note_distribution, length_distribution, tie_probability, bar_length, possible_tie,
+    def test_generate_bar(self, note_distribution, length_distribution, tie_probability, bar_length, possible_tie,
                              output):
         bar_generator = BarGenerator(note_distribution, length_distribution, tie_probability, bar_length)
         bar = bar_generator.generate_bar(possible_tie=possible_tie)
