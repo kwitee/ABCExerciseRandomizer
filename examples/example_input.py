@@ -15,9 +15,9 @@ note_distribution = [
 ]
 
 length_distribution = [
-    (NoteLength.eighth, 2),
-    (NoteLength.quarter, 5),
-    (NoteLength.half, 5),
+    (NoteLength.eighth, 1),
+    (NoteLength.quarter, 6),
+    (NoteLength.half, 4),
     (NoteLength.half_dot, 1),
     (NoteLength.whole, 1)
 ]
