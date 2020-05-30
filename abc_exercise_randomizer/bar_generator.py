@@ -56,9 +56,7 @@ class BarGenerator:
         note_value = str()
 
         while length < self.__bar_length:
-            remaining_length = self.__bar_length - length
-            possible_length = [length for length in self.__possible_lengths if length.value.value <= remaining_length]
-            note_length = random.choice(possible_length)
+            note_length = random.choice(self.__get_possible_lengths(length))
             note_value = random.choice(self.__get_possible_notes(length, previous_bar, note_value))
 
             length = length + note_length.value.value
@@ -67,6 +65,10 @@ class BarGenerator:
             notes.append(Note(note_value, note_length, tie))
 
         return Bar(notes)
+
+    def __get_possible_lengths(self, length):
+        remaining_length = self.__bar_length - length
+        return [length for length in self.__possible_lengths if length.value.value <= remaining_length]
 
     def __get_possible_notes(self, length: int, previous_bar: Bar, last_note: NoteValue):
         possible_notes = self.__possible_notes
