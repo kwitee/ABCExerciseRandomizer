@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class NoteValue(Enum):
+    e3 = "E"
     f3 = "F"
     g3 = "G"
     a3 = "A"
