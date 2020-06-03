@@ -3,6 +3,7 @@ from abc_exercise_randomizer.note_value import NoteValue
 from abc_exercise_randomizer.note_length import NoteLength
 
 note_distribution = [
+    (NoteValue.d3, 3),
     (NoteValue.e3, 3),
     (NoteValue.f3, 3),
     (NoteValue.g3, 2),
