@@ -2,6 +2,8 @@ from enum import Enum
 
 
 class NoteValue(Enum):
+    a2 = "A,"
+    b2 = "B,"
     c3 = "C"
     d3 = "D"
     e3 = "E"
