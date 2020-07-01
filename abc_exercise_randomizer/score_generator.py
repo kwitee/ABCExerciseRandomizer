@@ -2,12 +2,13 @@ import os
 
 from abc_exercise_randomizer.bar_generator import BarGenerator
 from abc_exercise_randomizer.bar_length import BarLength
+from abc_exercise_randomizer.key import Key
 from abc_exercise_randomizer.score import Score
 
 
 class ScoreGenerator:
 
-    def __init__(self, bar_generator: BarGenerator, bar_length: BarLength, number_of_bars: int):
+    def __init__(self, bar_generator: BarGenerator, bar_length: BarLength, number_of_bars: int, key: Key):
         """
         Creates score generator instance.
 
@@ -27,7 +28,7 @@ class ScoreGenerator:
         self.__script_name = os.path.basename(__file__)
         self.__default_note_length = "1/4"
         self.__tempo = "1/4 = 50"
-        self.__key = "C"
+        self.__key = Key(key).value
         self.__number_of_bars = number_of_bars
 
     def __generate_header(self, number: int):

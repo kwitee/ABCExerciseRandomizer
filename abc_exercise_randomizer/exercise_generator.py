@@ -2,6 +2,7 @@ from typing import List, Tuple
 
 from abc_exercise_randomizer.bar_generator import BarGenerator
 from abc_exercise_randomizer.bar_length import BarLength
+from abc_exercise_randomizer.key import Key
 from abc_exercise_randomizer.note_value import NoteValue
 from abc_exercise_randomizer.note_length import NoteLength
 from abc_exercise_randomizer.score_generator import ScoreGenerator
@@ -11,7 +12,7 @@ class ExerciseGenerator:
 
     def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
                  length_distribution: List[Tuple[NoteLength, int]],
-                 tie_probability: float, syncopated: bool, bar_length: BarLength, number_of_bars: int):
+                 tie_probability: float, syncopated: bool, bar_length: BarLength, number_of_bars: int, key: Key):
         """
         Creates exercise generator instance.
 
@@ -25,7 +26,7 @@ class ExerciseGenerator:
         """
 
         bar_generator = BarGenerator(note_distribution, length_distribution, tie_probability, syncopated, bar_length)
-        self.__score_generator = ScoreGenerator(bar_generator, bar_length, number_of_bars)
+        self.__score_generator = ScoreGenerator(bar_generator, bar_length, number_of_bars, key)
 
     def generate_exercise(self):
         """

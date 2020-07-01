@@ -6,7 +6,7 @@ from examples.example_input import *
 
 def main(file_name):
     generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability, syncopated, bar_length,
-                                  number_of_bars)
+                                  number_of_bars, key)
 
     with open(file_name, "w") as file:
         file.write(generator.generate_exercises(20))
