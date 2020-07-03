@@ -30,6 +30,6 @@ length_distribution = [
 
 tie_probability = 0.05
 syncopated = False
-bar_length = BarLength.four
+bar_length = BarLength.three
 number_of_bars = 16
-key = Key.G
+key = Key.F
