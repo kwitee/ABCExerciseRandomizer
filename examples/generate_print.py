@@ -1,10 +1,9 @@
 from abc_exercise_randomizer.exercise_generator import ExerciseGenerator
-from examples.example_input import *
+from abc_exercise_randomizer.exercise_generator_inputs import ExerciseGeneratorInputs
 
 
 def main():
-    generator = ExerciseGenerator(note_distribution, length_distribution, tie_probability, syncopated, bar_length,
-                                  number_of_bars, key)
+    generator = ExerciseGenerator(ExerciseGeneratorInputs().g_key_input)
     print(generator.generate_exercise())
 
 

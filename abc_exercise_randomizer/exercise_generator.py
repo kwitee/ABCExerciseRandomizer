@@ -1,32 +1,22 @@
-from typing import List, Tuple
-
 from abc_exercise_randomizer.bar_generator import BarGenerator
-from abc_exercise_randomizer.bar_length import BarLength
-from abc_exercise_randomizer.key import Key
-from abc_exercise_randomizer.note_value import NoteValue
-from abc_exercise_randomizer.note_length import NoteLength
+from abc_exercise_randomizer.exercise_generator_input import ExerciseGeneratorInput
 from abc_exercise_randomizer.score_generator import ScoreGenerator
 
 
 class ExerciseGenerator:
 
-    def __init__(self, note_distribution: List[Tuple[NoteValue, int]],
-                 length_distribution: List[Tuple[NoteLength, int]],
-                 tie_probability: float, syncopated: bool, bar_length: BarLength, number_of_bars: int, key: Key):
+    def __init__(self, input_data: ExerciseGeneratorInput):
         """
         Creates exercise generator instance.
 
         Parameters:
-            note_distribution: Note probability distribution, higher value means greater probability.
-            length_distribution: Length probability distribution, higher value means greater probability.
-            tie_probability: Probability of ties between bars (must be in <0;1>).
-            syncopated: Defines if the rhythm can be syncopated.
-            bar_length: Defines how many quarter notes are in each bar (only meters with quarter notes are supported).
-            number_of_bars: Number of bars to be generated (must be in <1;64>).
+            input_data: Object with exercise generator input values.
         """
 
-        bar_generator = BarGenerator(note_distribution, length_distribution, tie_probability, syncopated, bar_length)
-        self.__score_generator = ScoreGenerator(bar_generator, bar_length, number_of_bars, key)
+        bar_generator = BarGenerator(input_data.note_distribution, input_data.length_distribution,
+                                     input_data.tie_probability, input_data.syncopated, input_data.bar_length)
+        self.__score_generator = ScoreGenerator(bar_generator, input_data.bar_length, input_data.number_of_bars,
+                                                input_data.key)
 
     def generate_exercise(self):
         """
