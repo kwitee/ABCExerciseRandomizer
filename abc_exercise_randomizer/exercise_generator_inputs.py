@@ -35,7 +35,7 @@ class ExerciseGeneratorInputs:
 
         exercise_input.tie_probability = 0.05
         exercise_input.syncopated = False
-        exercise_input.bar_length = BarLength.two
+        exercise_input.bar_length = BarLength.four
         exercise_input.number_of_bars = 16
         exercise_input.key = Key.C
 
@@ -71,7 +71,7 @@ class ExerciseGeneratorInputs:
 
         exercise_input.tie_probability = 0.05
         exercise_input.syncopated = False
-        exercise_input.bar_length = BarLength.three
+        exercise_input.bar_length = BarLength.four
         exercise_input.number_of_bars = 16
         exercise_input.key = Key.G
 

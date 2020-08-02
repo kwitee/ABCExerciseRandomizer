@@ -5,7 +5,7 @@ from abc_exercise_randomizer.exercise_generator_inputs import ExerciseGeneratorI
 
 
 def main(file_name):
-    generator = ExerciseGenerator(ExerciseGeneratorInputs().g_key_input)
+    generator = ExerciseGenerator(ExerciseGeneratorInputs().c_key_input)
 
     with open(file_name, "w") as file:
         file.write(generator.generate_exercises(20))
